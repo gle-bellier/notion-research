@@ -5,7 +5,7 @@ from dateparser.search import search_dates
 from scholarly import scholarly
 
 
-class Article:
+class Extractor:
     def __init__(self, text):
         self.text = text
         self.article = self.isArticle()
@@ -49,20 +49,3 @@ class Article:
 
         except:
             print("Can not acces bibtex")
-
-
-# @article{chen2020wavegrad,
-#  abstract = {This paper, introduces WaveGrad, a conditional model for waveform generation which estimates gradients of the data density. The model is built on prior work on score matching and diffusion probabilistic models. It starts from a Gaussian white noise signal and iteratively refines the signal via a gradient-based sampler conditioned on the mel-spectrogram. WaveGrad offers a natural way to trade inference speed for sample quality by adjusting the number of refinement steps, and bridges the gap between non-autoregressive and},
-#  author = {Chen, Nanxin and Zhan, Yu and Zen, Heiga and Weiss, Ron J and Norouzi, Mohammad and Chan, William},
-#  journal = {arXiv preprint arXiv:2009.00713},
-#  pub_year = {2020},
-#  title = {WaveGrad: Estimating gradients for waveform generation},
-#  venue = {arXiv preprint arXiv …}
-# }
-
-article = Article(str(textract.process("article2.pdf")))
-# print(article.extract_abstract())
-# print(article.extract_date())
-#
-print(article.title)
-print(article.get_info())
