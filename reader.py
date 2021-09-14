@@ -5,11 +5,12 @@ from dateparser.search import search_dates
 from scholarly import scholarly
 
 
-class Extractor:
+class Article:
     def __init__(self, text):
         self.text = text
         self.article = self.isArticle()
         self.title = self.extract_title()
+        self.metadata = self.get_metadata()
 
     def isArticle(self):
         return "arXiv" in self.text[:1000]
@@ -37,15 +38,30 @@ class Extractor:
         i_arxiv = self.text.find("arXiv")
         return self.clean_title(self.text[2:i_arxiv])
 
-    def get_info(self):
+    def get_metadata(self):
         try:
             query = scholarly.search_pubs(self.title)
             pub = next(query)
-            print(pub)
-            #self.bibtex = scholarly.bibtex(pub)
-            # self.author = pub["author"]
-            # self.title = pub["author"]
-            #print(self.bibtex)
+            bibtex = scholarly.bibtex(pub)
 
+            infos = scholarly.fill(pub)
+            title = infos["bib"]["title"]
+            authors = infos["bib"]["author"]
+            year = infos["bib"]["pub_year"]
+            abstract = infos["bib"]["abstract"]
+
+            return {
+                "title": title,
+                "authors": authors,
+                "abstract": abstract,
+                "year": year,
+                "bibtex": bibtex
+            }
         except:
             print("Can not acces bibtex")
+
+
+if __name__ == "__main__":
+    text = textract.process("article2.pdf")
+    article = Article(str(text))
+    print(article.metadata)
