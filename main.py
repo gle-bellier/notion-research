@@ -4,7 +4,7 @@ from reader import Article
 
 if __name__ == "__main__":
     PATH = ""
-    SAVING_PATH = "\\articles"
+    SAVING_PATH = "articles/"
 
     bibtex_file = "biblio.bib"
 
