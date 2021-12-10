@@ -6,14 +6,10 @@ from scholarly import scholarly
 
 
 class Article:
-    def __init__(self, text):
-        self.text = text
-        self.article = self.isArticle()
+    def __init__(self, path):
+        self.text = str(textract.process(path))
         self.title = self.extract_title()
         self.metadata = self.get_metadata()
-
-    def isArticle(self):
-        return "arXiv" in self.text[:1000]
 
     def clean_title(self, title):
         cl_title = ""
@@ -62,6 +58,6 @@ class Article:
 
 
 if __name__ == "__main__":
-    text = textract.process("article2.pdf")
-    article = Article(str(text))
+    path = "article2.pdf"
+    article = Article(path)
     print(article.metadata)
