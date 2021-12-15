@@ -8,9 +8,8 @@ import textract
 
 def is_article(path):
     print(path)
-    #text = str(textract.process(str(path)))
-    #return "arXiv" in text[:1000]
-    return 3
+    text = str(textract.process(str(path)))
+    return "arXiv" in text[:1000]
 
 
 if __name__ == "__main__":
